@@ -22,7 +22,6 @@ export class MessagesGateway
 
   handleConnection(client: Socket) {
     const { currentUser, receiverId } = client.handshake.query;
-    console.log(receiverId);
     if (currentUser && receiverId) {
       const roomId = this.generateRoomId(
         currentUser as string,
@@ -45,7 +44,6 @@ export class MessagesGateway
     payload: { receiverId: string; currentUser: string; content: string },
   ) {
     const { currentUser, receiverId, content } = payload;
-    console.log(payload);
     const roomId = this.generateRoomId(currentUser, receiverId);
     const message = await this.messagesService.sendMessage(
       currentUser,
@@ -69,13 +67,11 @@ export class MessagesGateway
 
   @OnEvent('messages.seen')
   handleMessagesSeen(payload: { conversationId: string }) {
-    console.log('Messages seen event:', payload);
     this.server.to(payload.conversationId).emit('messagesSeen', payload);
   }
 
   @OnEvent('message.deleted')
   handleMessageDeleted(payload: { messageId: string }) {
-    console.log('Message deleted event:', payload);
     this.server.to(payload.messageId).emit('messageDeleted', payload);
   }
 

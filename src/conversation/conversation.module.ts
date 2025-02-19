@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from 'src/user/user.module'; // Import UserModule
+import { UserModule } from 'src/user/user.module';
 import {
   Conversation,
   ConversationSchema,
